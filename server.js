@@ -8,6 +8,7 @@ import swaggerDocument from "./swagger.json";
 import Cryptr from 'cryptr';
 import { getUserList, findUserById } from "./user";
 import TinyJsDb from 'tiny-js-db';
+import rateLimit from 'express-rate-limit';
 
 const app = express();
 const options = {
@@ -63,8 +64,12 @@ app.get('/token', cors(), (req, res) => {
     }
 });
 
+if (process.env.NODE_ENV == "DEV") {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+}
+
 // Endpoint secured by auth token
-if (process.env.NODE_ENV !== "DEV") {
+if (process.env.NODE_ENV == "DEV") {
     app.use((req, res) => {
         const authorization = req.get('authorization');
         if (!accessTokens.has(authorization)) {
@@ -75,16 +80,9 @@ if (process.env.NODE_ENV !== "DEV") {
     });
 }
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
-app.use((req, res, next) => {
-    const authorization = req.get('authorization');
-    if (!accessTokens.has(authorization)) {
-        return res.status(403).json({ message: 'Unauthorized' });
-    }
 
-    next()
-});
+
 
 // GET Call for all users
 app.get("/users", (req, res) => {
