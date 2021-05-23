@@ -1,0 +1,33 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon -r esm server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "cryptr": "^6.0.2",
+        "dotenv-safe": "^8.2.0",
+        "esm": "^3.2.25",
+        "express": "^4.17.1",
+        "express-rate-limit": "^5.2.6",
+        "express-session": "^1.17.1",
+        "lodash": "^4.17.21",
+        "lowdb": "^2.0.3",
+        "moment-timezone": "^0.5.33",
+        "morgan": "^1.10.0",
+        "swagger-ui-express": "^4.1.6",
+        "tiny-js-db": "^1.0.5",
+        "uuidv4": "^6.2.7"
+    },
+    "devDependencies": {
+        "nodemon": "^1.19.1",
+        "prettier": "^2.2.1"
+    }
+}
